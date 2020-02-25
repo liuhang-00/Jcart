@@ -1,10 +1,9 @@
 package com.liuhang.jcartadministrationback.controller;
 
-import com.liuhang.jcartadministrationback.dto.in.AdministratorLoginInDTO;
-import com.liuhang.jcartadministrationback.dto.in.AdministratorResetPwdInDTO;
-import com.liuhang.jcartadministrationback.dto.in.AdministratorUpdateProfileInDTO;
+import com.liuhang.jcartadministrationback.dto.in.*;
 import com.liuhang.jcartadministrationback.dto.out.AdministratorGetProfileOutDTO;
 import com.liuhang.jcartadministrationback.dto.out.AdministratorListOutDTO;
+import com.liuhang.jcartadministrationback.dto.out.AdministratorShowOutDTO;
 import com.liuhang.jcartadministrationback.dto.out.PageOutDTO;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,9 +36,25 @@ public class AdministratorController {
     public void resetPwd(@RequestBody AdministratorResetPwdInDTO administratorResetPwdInDTO){
 
     }
+
     @GetMapping("/getList")
     public PageOutDTO<AdministratorListOutDTO> getList(@RequestParam Integer pageNum){
         return null;
+    }
+
+    @GetMapping("/getById")
+    public AdministratorShowOutDTO getById(){
+        return null;
+    }
+
+    @PostMapping("/create")
+    public Integer create(@RequestBody AdministratorCreateInDTO administratorCreateInDTO){
+        return null;
+    }
+
+    @PostMapping("/update")
+    public void update(@RequestBody AdministratorUpdateInDTO administratorUpdateInDTO){
+        
     }
 
 }
