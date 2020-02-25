@@ -1,26 +1,18 @@
 package com.liuhang.jcartadministrationback.dto.in;
 
 public class AdministratorUpdateInDTO {
-    private Integer AdministratorId;
-    private String password;
+    private Integer administratorId;
     private String realName;
+    private String password;
     private String email;
     private Byte status;
 
     public Integer getAdministratorId() {
-        return AdministratorId;
+        return administratorId;
     }
 
     public void setAdministratorId(Integer administratorId) {
-        AdministratorId = administratorId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        this.administratorId = administratorId;
     }
 
     public String getRealName() {
@@ -29,6 +21,14 @@ public class AdministratorUpdateInDTO {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
