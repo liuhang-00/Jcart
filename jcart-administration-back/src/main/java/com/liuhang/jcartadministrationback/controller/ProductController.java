@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ProductController {
     @GetMapping("/getList")
-    public PageOutDTO<ProductListOutDTO> getList(@RequestBody ProductSearchInDTO productSearchInDTO){
+    public PageOutDTO<ProductListOutDTO> getList(ProductSearchInDTO productSearchInDTO,
+                                                 @RequestParam Integer pageNum){
         return null;
     }
 

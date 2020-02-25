@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customer")
 public class CustomerController {
     @GetMapping("/getList")
-    public PageOutDTO<CustomerListOutDTO> getList(@RequestBody CustomerSearchInDTO customerSearchInDTO){
+    public PageOutDTO<CustomerListOutDTO> getList(CustomerSearchInDTO customerSearchInDTO,
+                                                  @RequestParam Integer pageNum){
         return null;
     }
 
@@ -24,5 +25,5 @@ public class CustomerController {
 
     }
 
-    
+
 }
