@@ -1,36 +1,35 @@
 package com.liuhang.jcartadministrationback.controller;
 
-import com.liuhang.jcartadministrationback.dto.in.OrderHistoryCreateInDTO;
 import com.liuhang.jcartadministrationback.dto.in.OrderSearchInDTO;
 import com.liuhang.jcartadministrationback.dto.out.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    @GetMapping("/getList")
-    public PageOutDTO<OrderListOutDTO> getList(OrderSearchInDTO orderSearchInDTO,
-                                               @RequestParam Integer pageNum){
+
+    @GetMapping("/search")
+    public PageOutDTO<OrderListOutDTO> search(OrderSearchInDTO orderSearchInDTO,
+                                              @RequestParam Integer pageNum){
         return null;
     }
 
-    @GetMapping("getById")
+    @GetMapping("/getById")
     public OrderShowOutDTO getById(@RequestParam Long orderId){
         return null;
     }
 
-    @PostMapping("/createHistory")
-    public OrderHistoryCreateInDTO createHistory(@RequestBody OrderHistoryCreateInDTO orderHistoryCreateInDTO){
+    @GetMapping("/getInvoiceInfo")
+    public OrderInvoiceShowOutDTO getInvoiceInfo(@RequestParam Long orderId){
         return null;
     }
 
-    @GetMapping("/showInvoice")
-    public OrderInvoiceShowOutDTO showInvoice(@RequestParam Long orderId){
+    @GetMapping("/getShipInfo")
+    public OrderShipShowOutDTO getShipInfo(@RequestParam Long orderId){
         return null;
     }
 
-    @GetMapping("/showShip")
-    public OrderShipShowOutDTO showShip(@RequestParam Long orderId){
-        return null;
-    }
 }

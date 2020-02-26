@@ -1,7 +1,12 @@
 package com.liuhang.jcartadministrationback.dao;
 
 import com.liuhang.jcartadministrationback.po.ProductDetail;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface ProductDetailMapper {
     int deleteByPrimaryKey(Integer productId);
 
@@ -16,4 +21,9 @@ public interface ProductDetailMapper {
     int updateByPrimaryKeyWithBLOBs(ProductDetail record);
 
     int updateByPrimaryKey(ProductDetail record);
+
+//    custom
+
+    int batchDelete(@Param("productIds") List<Integer> productIds);
+
 }

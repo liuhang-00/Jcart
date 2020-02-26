@@ -1,6 +1,5 @@
 package com.liuhang.jcartadministrationback.controller;
 
-import com.liuhang.jcartadministrationback.dto.in.ReturnHistoryCreateInDTO;
 import com.liuhang.jcartadministrationback.dto.in.ReturnSearchInDTO;
 import com.liuhang.jcartadministrationback.dto.in.ReturnUpdateActionInDTO;
 import com.liuhang.jcartadministrationback.dto.out.PageOutDTO;
@@ -11,9 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/return")
 public class ReturnController {
-    @GetMapping("/getList")
-    public PageOutDTO<ReturnListOutDTO> getList(ReturnSearchInDTO returnSearchInDTO,
-                                                @RequestParam Integer pageNum){
+
+    @GetMapping("/search")
+    public PageOutDTO<ReturnListOutDTO> search(ReturnSearchInDTO returnSearchInDTO,
+                                               @RequestParam Integer pageNum){
         return null;
     }
 
@@ -22,13 +22,9 @@ public class ReturnController {
         return null;
     }
 
-    @PostMapping("/update")
-    public void update(@RequestBody ReturnUpdateActionInDTO returnUpdateActionInDTO){
+    @PostMapping("/updateAction")
+    public void updateAction(@RequestBody ReturnUpdateActionInDTO returnUpdateActionInDTO){
 
     }
 
-    @PostMapping("/create")
-    public Integer create(@RequestBody ReturnHistoryCreateInDTO returnHistoryCreateInDTO){
-        return null;
-    }
 }

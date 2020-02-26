@@ -7,6 +7,8 @@ import com.liuhang.jcartadministrationback.dto.out.AdministratorShowOutDTO;
 import com.liuhang.jcartadministrationback.dto.out.PageOutDTO;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/administrator")
 public class AdministratorController {
@@ -17,20 +19,19 @@ public class AdministratorController {
     }
 
     @GetMapping("/getProfile")
-    public AdministratorGetProfileOutDTO getProfile(Integer adminstratorId){
+    public AdministratorGetProfileOutDTO getProfile(@RequestParam(required = false) Integer adminstratorId){
         return null;
     }
 
-    @PostMapping("/updateProdfile")
-    public void updateProdfile(@RequestBody AdministratorUpdateProfileInDTO administratorUpdateProfileInDTO){
+    @PostMapping("/updateProfile")
+    public void updateProfile(@RequestBody AdministratorUpdateProfileInDTO administratorUpdateProfileInDTO){
 
     }
 
-    @GetMapping("/getPwdRestCode")
-    public String getPwdRestCode(@RequestParam String email){
-        return  null;
+    @GetMapping("/getPwdResetCode")
+    public String getPwdResetCode(@RequestParam String email){
+        return null;
     }
-
 
     @PostMapping("/resetPwd")
     public void resetPwd(@RequestBody AdministratorResetPwdInDTO administratorResetPwdInDTO){
@@ -43,7 +44,7 @@ public class AdministratorController {
     }
 
     @GetMapping("/getById")
-    public AdministratorShowOutDTO getById(){
+    public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){
         return null;
     }
 
@@ -54,6 +55,16 @@ public class AdministratorController {
 
     @PostMapping("/update")
     public void update(@RequestBody AdministratorUpdateInDTO administratorUpdateInDTO){
+
+    }
+
+    @PostMapping("/delete")
+    public void delete(@RequestBody Integer adminstratorId){
+
+    }
+
+    @PostMapping("/batchDelete")
+    public void batchDelete(@RequestBody List<Integer> administratorIds){
 
     }
 

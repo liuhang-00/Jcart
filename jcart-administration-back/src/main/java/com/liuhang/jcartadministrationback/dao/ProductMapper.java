@@ -1,7 +1,14 @@
 package com.liuhang.jcartadministrationback.dao;
 
+import com.github.pagehelper.Page;
+import com.liuhang.jcartadministrationback.dto.out.ProductListOutDTO;
 import com.liuhang.jcartadministrationback.po.Product;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface ProductMapper {
     int deleteByPrimaryKey(Integer productId);
 
@@ -14,4 +21,11 @@ public interface ProductMapper {
     int updateByPrimaryKeySelective(Product record);
 
     int updateByPrimaryKey(Product record);
+
+//    custom
+
+    int batchDelete(@Param("productIds") List<Integer> productIds);
+
+    Page<ProductListOutDTO> search();
+
 }

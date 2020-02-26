@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-    @GetMapping("/getList")
-    public PageOutDTO<CustomerListOutDTO> getList(CustomerSearchInDTO customerSearchInDTO,
-                                                  @RequestParam Integer pageNum){
+
+    @GetMapping("/search")
+    public PageOutDTO<CustomerListOutDTO> search(CustomerSearchInDTO customerSearchInDTO,
+                                                 @RequestParam Integer pageNum){
         return null;
     }
 
-    @GetMapping("/show")
-    public CustomerShowOutDTO show(@RequestParam Integer customerId){
+    @GetMapping("/getById")
+    public CustomerShowOutDTO getById(@RequestParam Integer customerId){
         return null;
     }
 
@@ -24,6 +25,5 @@ public class CustomerController {
     public void disable(@RequestParam Integer customerId){
 
     }
-
 
 }
