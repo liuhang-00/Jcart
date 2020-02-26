@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.cjf.jcartadministrationback.dao.ProductMapper">
-  <resultMap id="BaseResultMap" type="io.cjf.jcartadministrationback.po.Product">
+<mapper namespace="com.liuhang.jcartadministrationback.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.liuhang.jcartadministrationback.po.Product">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -14,7 +14,7 @@
     <result column="reword_points" jdbcType="INTEGER" property="rewordPoints" />
     <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
   </resultMap>
-  <resultMap id="ProductListOutDTO" type="io.cjf.jcartadministrationback.dto.out.ProductListOutDTO">
+  <resultMap id="ProductListOutDTO" type="com.liuhang.jcartadministrationback.dto.out.ProductListOutDTO">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -38,7 +38,7 @@
     delete from jcart_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jcartadministrationback.po.Product">
+  <insert id="insert" parameterType="com.liuhang.jcartadministrationback.po.Product">
     insert into jcart_product (product_id, product_code, product_name, 
       product_abstract, price, discount, 
       stock_quantity, status, main_pic_url, 
@@ -48,7 +48,7 @@
       #{stockQuantity,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{mainPicUrl,jdbcType=VARCHAR}, 
       #{rewordPoints,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="io.cjf.jcartadministrationback.po.Product" useGeneratedKeys="true" keyProperty="productId">
+  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.Product" useGeneratedKeys="true" keyProperty="productId">
     insert into jcart_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productCode != null">
@@ -115,7 +115,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jcartadministrationback.po.Product">
+  <update id="updateByPrimaryKeySelective" parameterType="com.liuhang.jcartadministrationback.po.Product">
     update jcart_product
     <set>
       <if test="productCode != null">
@@ -151,7 +151,7 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="io.cjf.jcartadministrationback.po.Product">
+  <update id="updateByPrimaryKey" parameterType="com.liuhang.jcartadministrationback.po.Product">
     update jcart_product
     set product_code = #{productCode,jdbcType=VARCHAR},
       product_name = #{productName,jdbcType=VARCHAR},

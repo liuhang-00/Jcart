@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.cjf.jcartadministrationback.dao.OrderDetailMapper">
-  <resultMap id="BaseResultMap" type="io.cjf.jcartadministrationback.po.OrderDetail">
+<mapper namespace="com.liuhang.jcartadministrationback.dao.OrderDetailMapper">
+  <resultMap id="BaseResultMap" type="com.liuhang.jcartadministrationback.po.OrderDetail">
     <id column="order_id" jdbcType="BIGINT" property="orderId" />
     <result column="ship_method" jdbcType="SMALLINT" property="shipMethod" />
     <result column="ship_address" jdbcType="VARCHAR" property="shipAddress" />
@@ -11,7 +11,7 @@
     <result column="invoice_price" jdbcType="DOUBLE" property="invoicePrice" />
     <result column="comment" jdbcType="VARCHAR" property="comment" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.cjf.jcartadministrationback.po.OrderDetail">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.liuhang.jcartadministrationback.po.OrderDetail">
     <result column="order_products" jdbcType="LONGVARCHAR" property="orderProducts" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -33,7 +33,7 @@
     delete from jcart_order_detail
     where order_id = #{orderId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jcartadministrationback.po.OrderDetail">
+  <insert id="insert" parameterType="com.liuhang.jcartadministrationback.po.OrderDetail">
     insert into jcart_order_detail (order_id, ship_method, ship_address, 
       ship_price, pay_method, invoice_address, 
       invoice_price, comment, order_products
@@ -43,7 +43,7 @@
       #{invoicePrice,jdbcType=DOUBLE}, #{comment,jdbcType=VARCHAR}, #{orderProducts,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="io.cjf.jcartadministrationback.po.OrderDetail">
+  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.OrderDetail">
     insert into jcart_order_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -104,7 +104,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jcartadministrationback.po.OrderDetail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.liuhang.jcartadministrationback.po.OrderDetail">
     update jcart_order_detail
     <set>
       <if test="shipMethod != null">
@@ -134,7 +134,7 @@
     </set>
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.cjf.jcartadministrationback.po.OrderDetail">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.liuhang.jcartadministrationback.po.OrderDetail">
     update jcart_order_detail
     set ship_method = #{shipMethod,jdbcType=SMALLINT},
       ship_address = #{shipAddress,jdbcType=VARCHAR},
@@ -146,7 +146,7 @@
       order_products = #{orderProducts,jdbcType=LONGVARCHAR}
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="io.cjf.jcartadministrationback.po.OrderDetail">
+  <update id="updateByPrimaryKey" parameterType="com.liuhang.jcartadministrationback.po.OrderDetail">
     update jcart_order_detail
     set ship_method = #{shipMethod,jdbcType=SMALLINT},
       ship_address = #{shipAddress,jdbcType=VARCHAR},

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.cjf.jcartadministrationback.dao.ProductDetailMapper">
-  <resultMap id="BaseResultMap" type="io.cjf.jcartadministrationback.po.ProductDetail">
+<mapper namespace="com.liuhang.jcartadministrationback.dao.ProductDetailMapper">
+  <resultMap id="BaseResultMap" type="com.liuhang.jcartadministrationback.po.ProductDetail">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="other_pic_urls" jdbcType="VARCHAR" property="otherPicUrls" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="io.cjf.jcartadministrationback.po.ProductDetail">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.liuhang.jcartadministrationback.po.ProductDetail">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
   </resultMap>
   <sql id="Base_Column_List">
@@ -26,13 +26,13 @@
     delete from jcart_product_detail
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jcartadministrationback.po.ProductDetail">
+  <insert id="insert" parameterType="com.liuhang.jcartadministrationback.po.ProductDetail">
     insert into jcart_product_detail (product_id, other_pic_urls, description
       )
     values (#{productId,jdbcType=INTEGER}, #{otherPicUrls,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="io.cjf.jcartadministrationback.po.ProductDetail">
+  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.ProductDetail">
     insert into jcart_product_detail
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productId != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jcartadministrationback.po.ProductDetail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.liuhang.jcartadministrationback.po.ProductDetail">
     update jcart_product_detail
     <set>
       <if test="otherPicUrls != null">
@@ -69,13 +69,13 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="io.cjf.jcartadministrationback.po.ProductDetail">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.liuhang.jcartadministrationback.po.ProductDetail">
     update jcart_product_detail
     set other_pic_urls = #{otherPicUrls,jdbcType=VARCHAR},
       description = #{description,jdbcType=LONGVARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="io.cjf.jcartadministrationback.po.ProductDetail">
+  <update id="updateByPrimaryKey" parameterType="com.liuhang.jcartadministrationback.po.ProductDetail">
     update jcart_product_detail
     set other_pic_urls = #{otherPicUrls,jdbcType=VARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.cjf.jcartadministrationback.dao.CustomerMapper">
-  <resultMap id="BaseResultMap" type="io.cjf.jcartadministrationback.po.Customer">
+<mapper namespace="com.liuhang.jcartadministrationback.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.liuhang.jcartadministrationback.po.Customer">
     <id column="customer_id" jdbcType="INTEGER" property="customerId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="real_name" jdbcType="VARCHAR" property="realName" />
@@ -31,7 +31,7 @@
     delete from jcart_customer
     where customer_id = #{customerId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="io.cjf.jcartadministrationback.po.Customer">
+  <insert id="insert" parameterType="com.liuhang.jcartadministrationback.po.Customer">
     insert into jcart_customer (customer_id, username, real_name, 
       avatar_url, encrypted_password, mobile, 
       mobile_verified, email, email_verified, 
@@ -43,7 +43,7 @@
       #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{newsSubscribed,jdbcType=BIT}, 
       #{rewordPoints,jdbcType=INTEGER}, #{defaultAddressId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="io.cjf.jcartadministrationback.po.Customer">
+  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.Customer">
     insert into jcart_customer
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
@@ -134,7 +134,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jcartadministrationback.po.Customer">
+  <update id="updateByPrimaryKeySelective" parameterType="com.liuhang.jcartadministrationback.po.Customer">
     update jcart_customer
     <set>
       <if test="username != null">
@@ -179,7 +179,7 @@
     </set>
     where customer_id = #{customerId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="io.cjf.jcartadministrationback.po.Customer">
+  <update id="updateByPrimaryKey" parameterType="com.liuhang.jcartadministrationback.po.Customer">
     update jcart_customer
     set username = #{username,jdbcType=VARCHAR},
       real_name = #{realName,jdbcType=VARCHAR},
