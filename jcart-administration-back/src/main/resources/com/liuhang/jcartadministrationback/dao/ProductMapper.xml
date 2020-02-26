@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.liuhang.jcartadministrationback.dao.ProductMapper">
-  <resultMap id="BaseResultMap" type="com.liuhang.jcartadministrationback.po.Product">
+<mapper namespace="io.cjf.jcartadministrationback.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="io.cjf.jcartadministrationback.po.Product">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
@@ -13,6 +13,16 @@
     <result column="main_pic_url" jdbcType="VARCHAR" property="mainPicUrl" />
     <result column="reword_points" jdbcType="INTEGER" property="rewordPoints" />
     <result column="sort_order" jdbcType="INTEGER" property="sortOrder" />
+  </resultMap>
+  <resultMap id="ProductListOutDTO" type="io.cjf.jcartadministrationback.dto.out.ProductListOutDTO">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="discount" jdbcType="DOUBLE" property="discount" />
+    <result column="stock_quantity" jdbcType="INTEGER" property="stockQuantity" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="main_pic_url" jdbcType="VARCHAR" property="mainPicUrl" />
   </resultMap>
   <sql id="Base_Column_List">
     product_id, product_code, product_name, product_abstract, price, discount, stock_quantity, 
@@ -28,7 +38,7 @@
     delete from jcart_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.liuhang.jcartadministrationback.po.Product">
+  <insert id="insert" parameterType="io.cjf.jcartadministrationback.po.Product">
     insert into jcart_product (product_id, product_code, product_name, 
       product_abstract, price, discount, 
       stock_quantity, status, main_pic_url, 
@@ -38,12 +48,9 @@
       #{stockQuantity,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}, #{mainPicUrl,jdbcType=VARCHAR}, 
       #{rewordPoints,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.Product">
+  <insert id="insertSelective" parameterType="io.cjf.jcartadministrationback.po.Product" useGeneratedKeys="true" keyProperty="productId">
     insert into jcart_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        product_id,
-      </if>
       <if test="productCode != null">
         product_code,
       </if>
@@ -76,9 +83,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
-      </if>
       <if test="productCode != null">
         #{productCode,jdbcType=VARCHAR},
       </if>
@@ -111,7 +115,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.liuhang.jcartadministrationback.po.Product">
+  <update id="updateByPrimaryKeySelective" parameterType="io.cjf.jcartadministrationback.po.Product">
     update jcart_product
     <set>
       <if test="productCode != null">
@@ -147,7 +151,7 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.liuhang.jcartadministrationback.po.Product">
+  <update id="updateByPrimaryKey" parameterType="io.cjf.jcartadministrationback.po.Product">
     update jcart_product
     set product_code = #{productCode,jdbcType=VARCHAR},
       product_name = #{productName,jdbcType=VARCHAR},
@@ -161,4 +165,21 @@
       sort_order = #{sortOrder,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
+
+<!--  custom-->
+  <delete id="batchDelete">
+    delete from jcart_product
+    where product_id in
+    <foreach item="item" index="index" collection="productIds"
+             open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="search" resultMap="ProductListOutDTO">
+    select
+    <include refid="Base_Column_List" />
+    from jcart_product
+  </select>
+
 </mapper>
