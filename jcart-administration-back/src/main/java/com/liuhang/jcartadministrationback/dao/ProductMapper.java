@@ -1,6 +1,7 @@
 package com.liuhang.jcartadministrationback.dao;
 
 import com.github.pagehelper.Page;
+import com.liuhang.jcartadministrationback.dto.in.ProductSearchInDTO;
 import com.liuhang.jcartadministrationback.dto.out.ProductListOutDTO;
 import com.liuhang.jcartadministrationback.po.Product;
 import org.apache.ibatis.annotations.Param;
@@ -26,6 +27,6 @@ public interface ProductMapper {
 
     int batchDelete(@Param("productIds") List<Integer> productIds);
 
-    Page<ProductListOutDTO> search();
+    Page<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO);
 
 }

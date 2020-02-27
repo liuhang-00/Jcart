@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin
 public class ProductController {
 
     @Autowired
@@ -23,7 +24,7 @@ public class ProductController {
     @GetMapping("/search")
     public PageOutDTO<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO,
                                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum){
-        Page<ProductListOutDTO> page = productService.search(pageNum);
+        Page<ProductListOutDTO> page = productService.search(pageNum,productSearchInDTO);
 
         PageOutDTO<ProductListOutDTO> pageOutDTO = new PageOutDTO<>();
         pageOutDTO.setTotal(page.getTotal());

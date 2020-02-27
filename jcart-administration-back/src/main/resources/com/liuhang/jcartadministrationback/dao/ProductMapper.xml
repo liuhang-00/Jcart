@@ -176,10 +176,25 @@
     </foreach>
   </delete>
 
-  <select id="search" resultMap="ProductListOutDTO">
+  <select id="search" resultMap="ProductListOutDTO" parameterType="com.liuhang.jcartadministrationback.dto.in.ProductSearchInDTO">
     select
     <include refid="Base_Column_List" />
-    from jcart_product
+    from jcart_product where 1=1
+    <if test="productCode!=null and productCode!=''">
+        and product_code = #{productCode}
+    </if>
+    <if test="productName!=null and productName!=''">
+         and product_name like '%${productName}%'
+    </if>
+    <if test="price!=null">
+         and price &gt; #{price}
+    </if>
+    <if test="stockQuantity!=null">
+         and stock_quantity &gt; #{stockQuantity}
+    </if>
+    <if test="status">
+         and status = #{status} 
+    </if>
   </select>
 
 </mapper>
