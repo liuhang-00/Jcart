@@ -192,8 +192,8 @@
     <if test="stockQuantity!=null">
          and stock_quantity &gt; #{stockQuantity}
     </if>
-    <if test="status">
-         and status = #{status} 
+    <if test="status!=null">
+         and status = #{status}
     </if>
   </select>
 
