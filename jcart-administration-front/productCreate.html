@@ -49,6 +49,26 @@
             <el-button size="small" type="success" @click="handleUploadMainClick">上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
         </el-upload>
+        上传后主图：<el-link type="primary" :href="'http://localhost/'+mainPicUrl">{{mainPicUrl}}</el-link>
+        <br>
+        <br>
+
+        <el-upload ref="uploadOther" multiple action="" :http-request="uploadOtherImage" :limit="9" accept="image/*"
+            :auto-upload="false" :on-change="handleOnOtherChange" :on-remove="handleOnOtherRemove" :file-list="otherFileList">
+            <el-button slot="trigger" size="small" type="primary">选取其他图片</el-button>
+            <el-button size="small" type="success" @click="handleUploadOtherClick">上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
+        </el-upload>
+        上传后其他图片：
+        <br>
+        <div>
+            <el-link v-for="item in otherPicUrls" type="primary" :href="'http://localhost/'+item">{{item}}</el-link>
+            <br>
+        </div>
+        <br>
+        <br>
+
+
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onsubmit">添加</el-button>

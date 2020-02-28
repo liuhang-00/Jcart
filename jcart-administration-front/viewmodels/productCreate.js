@@ -17,7 +17,27 @@ var app = new Vue({
 
     },methods: {
         onsubmit(){
-
+            console.log(this.productVo);
+            axios.post("/product/create",{
+                productCode:this.productVo.productCode,
+                productName:this.productVo.productName,
+                status:this.productVo.status,
+                price:this.productVo.price,
+                discount:this.productVo.discount,
+                stockQuantity:this.productVo.stockQuantity,
+                mainPicUrl:this.mainPicUrl,
+                rewordPoints:this.productVo.rewordPoints,
+                sortOrder:this.productVo.sortOrder,
+                description:this.productVo.description,
+                otherPicUrls:this.otherPicUrls
+            }).then(function (response) {
+                console.log(response);
+                alert('上传成功');
+            })
+            .catch(function (error) {
+                console.log(error);
+                alert('上传失败');
+            });
         },
         handleOnMainChange(val) {
             this.selectedMainPic = val.raw;
@@ -71,15 +91,17 @@ var app = new Vue({
                         console.log(response);
                         var url = response.data;
                         app.otherPicUrls.push(url);
+                        alert('上传成功');
                     })
                     .catch(function (error) {
                         console.log(error);
-                        alert('上床失败');
+                        alert('上传失败');
                     });
             });
 
 
         },
+
 
     },mounted() {
         

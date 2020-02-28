@@ -48,7 +48,10 @@
             </el-table-column>
             <el-table-column prop="status" label="状态">
             </el-table-column>
-            <el-table-column prop="mainPicUrl" label="主图">
+            <el-table-column  label="主图">
+                <template slot-scope="scope">
+                    <img :src="'http://localhost/'+scope.row.mainPicUrl" style="width: 60px;height: 60px;">
+                </template>
             </el-table-column>
         </el-table>
         <el-pagination background layout="prev, pager, next" :total="total" :page-size="pageSize"
