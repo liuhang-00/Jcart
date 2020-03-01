@@ -6,7 +6,9 @@
     <result column="other_pic_urls" jdbcType="VARCHAR" property="otherPicUrls" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.liuhang.jcartstoreback.po.ProductDetail">
-    <result column="description" jdbcType="LONGVARCHAR" property="description" />
+    <result column="other_pic_urls" jdbcType="VARCHAR" property="otherPicUrls" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+
   </resultMap>
 
   <resultMap id="ProductListOutDTO" type="com.liuhang.jcartstoreback.dto.out.ProductListOutDTO">
@@ -27,9 +29,8 @@
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
+    description,other_pic_urls
+    
     from jcart_product_detail
     where product_id = #{productId,jdbcType=INTEGER}
   </select>

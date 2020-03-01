@@ -5,7 +5,8 @@ var app = new Vue({
         pageNum:1,
         pageSize:2,
         total:1,
-        productVo:{}
+        productVo:{},
+        description:'<p><i>asdfa</i></p>'
     },methods: {
         search(){
             var params={
