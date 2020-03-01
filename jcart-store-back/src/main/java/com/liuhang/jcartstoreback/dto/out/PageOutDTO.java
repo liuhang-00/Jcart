@@ -3,16 +3,17 @@ package com.liuhang.jcartstoreback.dto.out;
 import java.util.List;
 
 public class PageOutDTO<T> {
-    private Integer total;
+    private Long total;
     private Integer pageSize;
     private Integer pageNum;
     private List<T> list;
 
-    public Integer getTotal() {
+
+    public Long getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Long total) {
         this.total = total;
     }
 

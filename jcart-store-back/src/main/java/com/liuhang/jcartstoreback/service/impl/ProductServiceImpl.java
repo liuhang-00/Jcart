@@ -1,8 +1,12 @@
 package com.liuhang.jcartstoreback.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.liuhang.jcartstoreback.dao.ProductDetailMapper;
 import com.liuhang.jcartstoreback.dao.ProductMapper;
+import com.liuhang.jcartstoreback.dto.in.ProductSearchInDTO;
+import com.liuhang.jcartstoreback.dto.out.ProductListOutDTO;
 import com.liuhang.jcartstoreback.dto.out.ProductShowOutDTO;
 import com.liuhang.jcartstoreback.po.Product;
 import com.liuhang.jcartstoreback.po.ProductDetail;
@@ -43,5 +47,12 @@ public class ProductServiceImpl implements ProductService {
         productShowOutDTO.setOtherPicUrls(otherPicUrls);
 
         return productShowOutDTO;
+    }
+
+    @Override
+    public Page<ProductListOutDTO> search(Integer pageNum, ProductSearchInDTO productSearchInDTO) {
+        PageHelper.startPage(pageNum,2);
+        Page<ProductListOutDTO> page = productDetailMapper.search(productSearchInDTO);
+        return page;
     }
 }
