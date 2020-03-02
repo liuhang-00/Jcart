@@ -1,10 +1,14 @@
 package com.liuhang.jcartadministrationback.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.liuhang.jcartadministrationback.constant.ClientExceptionConstant;
 import com.liuhang.jcartadministrationback.dto.in.*;
-import com.liuhang.jcartadministrationback.dto.out.AdministratorGetProfileOutDTO;
-import com.liuhang.jcartadministrationback.dto.out.AdministratorListOutDTO;
-import com.liuhang.jcartadministrationback.dto.out.AdministratorShowOutDTO;
-import com.liuhang.jcartadministrationback.dto.out.PageOutDTO;
+import com.liuhang.jcartadministrationback.dto.out.*;
+import com.liuhang.jcartadministrationback.exception.ClientException;
+import com.liuhang.jcartadministrationback.po.Administrator;
+import com.liuhang.jcartadministrationback.service.AdministratorService;
+import com.liuhang.jcartadministrationback.util.JWTUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +17,28 @@ import java.util.List;
 @RequestMapping("/administrator")
 public class AdministratorController {
 
+    @Autowired
+    private AdministratorService service;
+
+    @Autowired
+    private JWTUtil jwtUtil;
+
     @GetMapping("/login")
-    public String login(AdministratorLoginInDTO administratorLoginInDTO){
-        return null;
+    public AdministratorLoginOutDTO login(AdministratorLoginInDTO administratorLoginInDTO) throws ClientException {
+        Administrator administrator = service.getByUsername(administratorLoginInDTO.getUsername());
+        if(administrator==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_USERNAME_NOT_EXIST_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_USERNAME_NOT_EXIST_ERRMSG);
+        }
+        String encPwdDB = administrator.getEncryptedPassword();
+        BCrypt.Result result = BCrypt.verifyer().verify(administratorLoginInDTO.getPassword().toCharArray(),encPwdDB);
+
+        if(result.verified){
+            AdministratorLoginOutDTO administratorLoginOutDTO = jwtUtil.issueToken(administrator);
+            return administratorLoginOutDTO;
+        }else {
+            throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRMSG);
+        }
+
     }
 
     @GetMapping("/getProfile")
