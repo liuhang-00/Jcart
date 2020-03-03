@@ -1,6 +1,7 @@
 package com.liuhang.jcartadministrationback.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.github.pagehelper.Page;
 import com.liuhang.jcartadministrationback.constant.ClientExceptionConstant;
 import com.liuhang.jcartadministrationback.dto.in.*;
 import com.liuhang.jcartadministrationback.dto.out.*;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/administrator")
@@ -63,8 +65,24 @@ public class AdministratorController {
     }
 
     @GetMapping("/getList")
-    public PageOutDTO<AdministratorListOutDTO> getList(@RequestParam Integer pageNum){
-        return null;
+    public PageOutDTO<AdministratorListOutDTO> getList(@RequestParam(required = false,defaultValue = "1") Integer pageNum){
+        Page<Administrator> list = service.getList(pageNum);
+        List<AdministratorListOutDTO> administratorListOutDTOS = list.stream().map(administrator -> {
+            AdministratorListOutDTO administratorListOutDTO = new AdministratorListOutDTO();
+            administratorListOutDTO.setAdministratorId(administrator.getAdministratorId());
+            administratorListOutDTO.setUsername(administrator.getUsername());
+            administratorListOutDTO.setStatus(administrator.getStatus());
+            administratorListOutDTO.setRealName(administrator.getRealName());
+            administratorListOutDTO.setCreateTimestamp(administrator.getCreateTime().getTime());
+            return administratorListOutDTO;
+        }).collect(Collectors.toList());
+
+        PageOutDTO<AdministratorListOutDTO> pageOutDTO = new PageOutDTO<>();
+        pageOutDTO.setTotal(list.getTotal());
+        pageOutDTO.setPageSize(list.getPageSize());
+        pageOutDTO.setPageNum(list.getPageNum());
+        pageOutDTO.setList(administratorListOutDTOS);
+        return pageOutDTO;
     }
 
     @GetMapping("/getById")

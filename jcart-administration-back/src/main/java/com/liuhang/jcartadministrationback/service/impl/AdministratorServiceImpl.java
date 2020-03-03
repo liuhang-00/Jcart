@@ -52,6 +52,6 @@ public class AdministratorServiceImpl implements AdministratorService {
     public Page<Administrator> getList(Integer pageNum) {
         PageHelper.startPage(pageNum,2);
         Page<Administrator> page= mapper.selectList();
-        return null;
+        return page;
     }
 }
