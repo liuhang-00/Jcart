@@ -6,9 +6,10 @@ import com.liuhang.jcartadministrationback.dao.AdministratorMapper;
 import com.liuhang.jcartadministrationback.po.Administrator;
 import com.liuhang.jcartadministrationback.service.AdministratorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class AdministratorServiceImpl implements AdministratorService {
     @Autowired
     private AdministratorMapper mapper;
