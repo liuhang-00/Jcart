@@ -11,6 +11,24 @@
 
 <body>
 <div id="app">
+    <el-table :data="pageInfo.list" style="width: 100%">
+        <el-table-column prop="orderId" label="订单Id">
+        </el-table-column>
+        <el-table-column prop="customerName" label="客户姓名">
+        </el-table-column>
+        <el-table-column prop="status" label="状态">
+        </el-table-column>
+        <el-table-column prop="totalPrice" label="总价">
+        </el-table-column>
+        <el-table-column prop="createTimestamp" label="下单时间">
+        </el-table-column>
+        <el-table-column prop="updateTimestamp" label="修改时间">
+        </el-table-column>
+    </el-table>
+
+    <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handlePageChange">
+    </el-pagination>
+
 </div>
 
 <script src="assets/js/axios.min.js"></script>
