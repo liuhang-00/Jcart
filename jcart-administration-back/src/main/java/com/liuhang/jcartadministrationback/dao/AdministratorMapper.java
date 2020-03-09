@@ -24,4 +24,7 @@ public interface AdministratorMapper {
     int batchDelete(@Param("administratorIds") List<Integer> administratorIds);
 
     Page<Administrator> selectList();
+
+    Administrator selectByEmail(@Param("email")String email);
+
 }

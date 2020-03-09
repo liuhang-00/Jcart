@@ -20,4 +20,6 @@ public interface AdministratorService {
     void batchDelete(List<Integer> administratorIds);
 
     Page<Administrator> getList(Integer pageNum);
+
+    Administrator getByEmail(String email);
 }

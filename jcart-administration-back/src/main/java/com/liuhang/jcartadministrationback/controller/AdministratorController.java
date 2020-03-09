@@ -10,9 +10,16 @@ import com.liuhang.jcartadministrationback.po.Administrator;
 import com.liuhang.jcartadministrationback.service.AdministratorService;
 import com.liuhang.jcartadministrationback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.bind.DatatypeConverter;
+import java.security.SecureRandom;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,6 +32,17 @@ public class AdministratorController {
 
     @Autowired
     private JWTUtil jwtUtil;
+
+    @Autowired
+    private SecureRandom secureRandom;
+
+    @Value("${spring.mail.username}")
+    private String fromEmail;
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    private Map<String, String> emailPwdResetCodeMap = new HashMap<>();
 
     @GetMapping("/login")
     public AdministratorLoginOutDTO login(AdministratorLoginInDTO administratorLoginInDTO) throws ClientException {
@@ -39,24 +57,51 @@ public class AdministratorController {
             AdministratorLoginOutDTO administratorLoginOutDTO = jwtUtil.issueToken(administrator);
             return administratorLoginOutDTO;
         }else {
-            throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRMSG);
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_PASSWORD_INVALID_ERRCODE, ClientExceptionConstant.ADMINISTRATOR_PASSWORD_INVALID_ERRMSG);
         }
 
     }
 
     @GetMapping("/getProfile")
     public AdministratorGetProfileOutDTO getProfile(@RequestParam(required = false) Integer adminstratorId){
-        return null;
+        Administrator administrator = service.getById(adminstratorId);
+        AdministratorGetProfileOutDTO administratorGetProfileOutDTO= new AdministratorGetProfileOutDTO();
+        administratorGetProfileOutDTO.setAdministratorId(administrator.getAdministratorId());
+        administratorGetProfileOutDTO.setUsername(administrator.getUsername());
+        administratorGetProfileOutDTO.setRealName(administrator.getRealName());
+        administratorGetProfileOutDTO.setEmail(administrator.getEmail());
+        administratorGetProfileOutDTO.setAvatarUrl(administrator.getAvatarUrl());
+        administratorGetProfileOutDTO.setCreateTimestamp(administrator.getCreateTime().getTime());
+
+        return administratorGetProfileOutDTO;
     }
 
     @PostMapping("/updateProfile")
-    public void updateProfile(@RequestBody AdministratorUpdateProfileInDTO administratorUpdateProfileInDTO){
-
+    public void updateProfile(@RequestBody AdministratorUpdateProfileInDTO administratorUpdateProfileInDTO,
+                              @RequestAttribute Integer administratorId){
+        Administrator administrator = new Administrator();
+        administrator.setAdministratorId(administratorId);
+        administrator.setRealName(administratorUpdateProfileInDTO.getRealName());
+        administrator.setEmail(administratorUpdateProfileInDTO.getEmail());
+        administrator.setAvatarUrl(administratorUpdateProfileInDTO.getAvatarUrl());
+        service.update(administrator);
     }
 
     @GetMapping("/getPwdResetCode")
-    public String getPwdResetCode(@RequestParam String email){
-        return null;
+    public void getPwdResetCode(@RequestParam String email) throws ClientException {
+        Administrator administrator= service.getByEmail(email);
+        if (administrator==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRCODE, ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRMSG);
+        }
+        byte[] bytes = secureRandom.generateSeed(3);
+        String hex = DatatypeConverter.printHexBinary(bytes);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(email);
+        message.setSubject("jcart管理端管理员密码重置");
+        message.setText(hex);
+        mailSender.send(message);
+        emailPwdResetCodeMap.put(email,hex);
     }
 
     @PostMapping("/resetPwd")
