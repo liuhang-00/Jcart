@@ -33,7 +33,7 @@
       #{email,jdbcType=VARCHAR}, #{encryptedPassword,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
       #{createTime,jdbcType=TIMESTAMP}, #{avatarUrl,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.Administrator">
+  <insert id="insertSelective" parameterType="com.liuhang.jcartadministrationback.po.Administrator" useGeneratedKeys="true" keyColumn="administratorId" keyProperty="administratorId">
     insert into jcart_administrator
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="administratorId != null">
