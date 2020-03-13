@@ -1,5 +1,7 @@
 package com.liuhang.jcartadministrationback.dao;
 
+import com.github.pagehelper.Page;
+import com.liuhang.jcartadministrationback.dto.out.OrderListOutDTO;
 import com.liuhang.jcartadministrationback.po.Order;
 
 public interface OrderMapper {
@@ -14,4 +16,6 @@ public interface OrderMapper {
     int updateByPrimaryKeySelective(Order record);
 
     int updateByPrimaryKey(Order record);
+
+    Page<OrderListOutDTO> search();
 }

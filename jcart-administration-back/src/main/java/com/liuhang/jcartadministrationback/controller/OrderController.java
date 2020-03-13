@@ -2,14 +2,14 @@ package com.liuhang.jcartadministrationback.controller;
 
 import com.liuhang.jcartadministrationback.dto.in.OrderSearchInDTO;
 import com.liuhang.jcartadministrationback.dto.out.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin
 public class OrderController {
+
+
 
     @GetMapping("/search")
     public PageOutDTO<OrderListOutDTO> search(OrderSearchInDTO orderSearchInDTO,
