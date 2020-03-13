@@ -2,6 +2,7 @@ package com.liuhang.jcartadministrationback.service;
 
 import com.github.pagehelper.Page;
 import com.liuhang.jcartadministrationback.dto.in.CustomerSearchInDTO;
+import com.liuhang.jcartadministrationback.dto.in.CustomerSetStatusInDTO;
 import com.liuhang.jcartadministrationback.po.Customer;
 
 public interface CustomerService {
@@ -9,5 +10,5 @@ public interface CustomerService {
 
     Customer getById(Integer customer);
 
-    void setStatus(CustomerSearchInDTO customerSearchInDTO);
+    void setStatus(CustomerSetStatusInDTO customerSetStatusInDTO);
 }

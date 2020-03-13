@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.liuhang.jcartadministrationback.dao.CustomerMapper;
 import com.liuhang.jcartadministrationback.dto.in.CustomerSearchInDTO;
+import com.liuhang.jcartadministrationback.dto.in.CustomerSetStatusInDTO;
 import com.liuhang.jcartadministrationback.po.Customer;
 import com.liuhang.jcartadministrationback.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void setStatus(CustomerSearchInDTO customerSearchInDTO) {
-
+    public void setStatus(CustomerSetStatusInDTO customerSetStatusInDTO) {
+        Customer customer = new Customer();
+        customer.setCustomerId(customerSetStatusInDTO.getCustomerId());
+        customer.setStatus(customerSetStatusInDTO.getStatus());
+        mapper.updateByPrimaryKeySelective(customer);
     }
 }
