@@ -5,7 +5,9 @@ import com.liuhang.jcartadministrationback.dto.in.CustomerSearchInDTO;
 import com.liuhang.jcartadministrationback.dto.out.CustomerListOutDTO;
 import com.liuhang.jcartadministrationback.dto.out.CustomerShowOutDTO;
 import com.liuhang.jcartadministrationback.dto.out.PageOutDTO;
+import com.liuhang.jcartadministrationback.po.Address;
 import com.liuhang.jcartadministrationback.po.Customer;
+import com.liuhang.jcartadministrationback.service.AddressService;
 import com.liuhang.jcartadministrationback.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class CustomerController {
 
     @Autowired
     private CustomerService service;
+
+    @Autowired
+    private AddressService addressService;
 
     @GetMapping("/search")
     public PageOutDTO<CustomerListOutDTO> search(CustomerSearchInDTO customerSearchInDTO,
@@ -47,7 +52,23 @@ public class CustomerController {
 
     @GetMapping("/getById")
     public CustomerShowOutDTO getById(@RequestParam Integer customerId){
-        return null;
+        Customer customer = service.getById(customerId);
+
+        CustomerShowOutDTO customerShowOutDTO = new CustomerShowOutDTO();
+        customerShowOutDTO.setCustomerId(customer.getCustomerId());
+        customerShowOutDTO.setUsername(customer.getUsername());
+        customerShowOutDTO.setRealName(customer.getRealName());
+        customerShowOutDTO.setMobile(customer.getMobile());
+        customerShowOutDTO.setAvatarUrl(customer.getAvatarUrl());
+        customerShowOutDTO.setCreateTimestamp(customer.getCreateTime().getTime());
+        customerShowOutDTO.setDefaultAddressId(customer.getDefaultAddressId());
+        customerShowOutDTO.setNewsSubscribed(customer.getNewsSubscribed());
+        customerShowOutDTO.setStatus(customer.getStatus());
+        Address defaultAddress = addressService.getById(customer.getDefaultAddressId());
+        if(defaultAddress!= null){
+            customerShowOutDTO.setDefaultAddress(defaultAddress.getContent());
+        }
+        return customerShowOutDTO;
     }
 
     @PostMapping("/disable")
