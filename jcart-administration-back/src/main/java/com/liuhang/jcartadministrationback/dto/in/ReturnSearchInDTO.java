@@ -7,6 +7,24 @@ public class ReturnSearchInDTO {
     private String productCode;
     private String productName;
     private Byte status;
+    private Long startTimestap;
+    private Long endTimestamp;
+
+    public Long getStartTimestap() {
+        return startTimestap;
+    }
+
+    public void setStartTimestap(Long startTimestap) {
+        this.startTimestap = startTimestap;
+    }
+
+    public Long getEndTimestamp() {
+        return endTimestamp;
+    }
+
+    public void setEndTimestamp(Long endTimestamp) {
+        this.endTimestamp = endTimestamp;
+    }
 
     public Integer getReturnId() {
         return returnId;
