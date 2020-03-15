@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orderhistory")
+@CrossOrigin
 public class OrderHistoryController {
 
     @GetMapping("/getListByOrderId")
