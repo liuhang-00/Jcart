@@ -7,9 +7,10 @@ import com.liuhang.jcartadministrationback.dto.in.ReturnSearchInDTO;
 import com.liuhang.jcartadministrationback.po.Return;
 import com.liuhang.jcartadministrationback.service.ReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+@Service
 public class ReturnServiceImpl implements ReturnService {
 
     @Autowired
