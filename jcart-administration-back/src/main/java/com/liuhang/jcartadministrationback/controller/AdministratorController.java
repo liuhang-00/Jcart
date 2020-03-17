@@ -107,8 +107,35 @@ public class AdministratorController {
     }
 
     @PostMapping("/resetPwd")
-    public void resetPwd(@RequestBody AdministratorResetPwdInDTO administratorResetPwdInDTO){
+    public void resetPwd(@RequestBody AdministratorResetPwdInDTO administratorResetPwdInDTO) throws ClientException {
+        String email = administratorResetPwdInDTO.getEmail();
+        if(email==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_PWDRESET_EMAIL_NONE_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_PWDRESET_EMAIL_NONE_ERRMSG);
+        }
+        String innerResetCode = emailPwdResetCodeMap.get(email);
+        if(innerResetCode==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_PWDRESET_INNER_RESETCODE_NONE_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_PWDRESET_INNER_RESETCODE_NONE_ERRMSG);
+        }
+        String outerResetCode = administratorResetPwdInDTO.getResetCode();
+        if(outerResetCode ==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_PWDRESET_OUTER_RESETCODE_NONE_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_PWDRESET_OUTER_RESETCODE_NONE_ERRMSG);
+        }
+        if(!outerResetCode.equalsIgnoreCase(innerResetCode)){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_PWDRESET_RESETCODE_INVALID_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_PWDRESET_RESETCODE_INVALID_ERRMSG);
+        }
+        Administrator administrator = service.getByEmail(email);
+        if(administrator==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRMSG);
+        }
 
+        String newPwd = administratorResetPwdInDTO.getNewPwd();
+        if(newPwd == null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_NEWPWD_NOT_EXIST_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_NEWPWD_NOT_EXIST_ERRMSG);
+        }
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12,newPwd.toCharArray());
+        administrator.setEncryptedPassword(bcryptHashString);
+        service.update(administrator);
+        emailPwdResetCodeMap.remove(email);
     }
 
     @GetMapping("/getList")
@@ -178,12 +205,12 @@ public class AdministratorController {
 
     @PostMapping("/delete")
     public void delete(@RequestBody Integer adminstratorId){
-
+        service.delete(adminstratorId);
     }
 
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> administratorIds){
-
+        service.batchDelete(administratorIds);
     }
 
 }
