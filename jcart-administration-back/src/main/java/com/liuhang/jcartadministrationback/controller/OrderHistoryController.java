@@ -18,6 +18,7 @@ public class OrderHistoryController {
 
     @Autowired
     private OrderHistoryService service;
+
     @GetMapping("/getListByOrderId")
     public List<OrderHistoryListOutDTO> getListByOrderId(@RequestParam Long orderId){
         List<OrderHistory> byOrderId = service.getByOrderId(orderId);
