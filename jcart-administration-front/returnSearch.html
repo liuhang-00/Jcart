@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>Demo</title>
+</head>
+
+<body>
+<div id="app">
+    <el-input v-model="returnId" placeholder="请输入退货Id"></el-input>
+        <el-input v-model="orderId" placeholder="请输入订单Id"></el-input>
+        <el-input v-model="customerName" placeholder="请输入客户姓名"></el-input>
+        <el-input v-model="productCode" placeholder="请输入商品代号"></el-input>
+        <el-input v-model="productName" placeholder="请输入商品名称"></el-input>
+        <br>
+
+        <el-select v-model="selectedStatus" placeholder="请选择状态">
+            <el-option v-for="item in statuses" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+        <br>
+
+        <el-date-picker v-model="startTime" type="date" placeholder="选择开始日期">
+        </el-date-picker>
+        <br>
+
+        <el-date-picker v-model="endTime" type="date" placeholder="选择结束日期">
+        </el-date-picker>
+        <br>
+
+        <el-button type="primary" @click="handleSearchClick">搜索</el-button>
+        <el-button type="primary" @click="handleClearClick">清空条件</el-button>
+
+        <el-table :data="pageInfo.list" style="width: 100%">
+            <el-table-column prop="returnId" label="退货Id">
+            </el-table-column>
+            <el-table-column prop="orderId" label="订单Id">
+            </el-table-column>
+            <el-table-column prop="customerName" label="客户姓名">
+            </el-table-column>
+            <el-table-column prop="productCode" label="商品代号">
+            </el-table-column>
+            <el-table-column prop="productName" label="商品名称">
+            </el-table-column>
+            <el-table-column prop="status" label="状态">
+                <template slot-scope="scope">
+                    {{statuses[scope.row.status].label}}
+                </template>
+            </el-table-column>
+            <el-table-column label="申请日期">
+                <template slot-scope="scope">
+                    {{(new Date(scope.row.createTimestamp)).toLocaleString()}}
+                </template>
+            </el-table-column>
+            <el-table-column label="修改日期">
+                <template slot-scope="scope">
+                    {{(new Date(scope.row.updateTimestamp)).toLocaleString()}}
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handlePageChange">
+        </el-pagination>
+</div>
+
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/elementui.js"></script>
+<script src="viewmodels/returnSearch.js"></script>
+
+</body>
+
+</html>
