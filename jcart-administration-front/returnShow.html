@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>Demo</title>
+</head>
+
+<body>
+<div id="app">
+    <el-divider>退货基本信息</el-divider>
+        退货Id：{{returnId}} <br>
+        订单Id：{{orderId}} <br>
+        订单时间：{{(new Date(orderTimestamp)).toLocaleString()}} <br>
+        客户Id：{{customerId}} <br>
+        客户姓名：{{customerName}} <br>
+        手机：{{mobile}} <br>
+        邮箱：{{email}} <br>
+        状态：{{statuses[status].label}}<br>
+        处理方式：{{actions[action].label}}<br>
+        <br>
+
+        <el-divider>退货商品信息</el-divider>
+        商品代号：{{productCode}} <br>
+        商品名称：{{productName}} <br>
+        数量：{{quantity}} <br>
+        原因：{{reasons[reason].label}} <br>
+        是否开封：<span v-if="opened">是</span><span v-else>否</span> <br>
+        备注：{{comment}} <br>
+        申请时间：{{(new Date(createTimestamp)).toLocaleString()}}<br>
+        更新时间：{{(new Date(updateTimestamp)).toLocaleString()}}<br>
+        <br>
+
+        <el-select v-model="selectedAction" placeholder="请选择处理方式">
+            <el-option v-for="item in actions" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+
+        <el-button type="primary" @click="handleUpdateAction">修改处理方式</el-button>
+</div>
+
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/elementui.js"></script>
+<script src="viewmodels/returnShow.js"></script>
+
+</body>
+
+</html>
