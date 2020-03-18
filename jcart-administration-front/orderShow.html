@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="assets/css/elementui.css">
+    <title>Demo</title>
+</head>
+
+<body>
+<div id="app">
+
+    订单Id：{{orderId}} <br>
+        客户姓名：{{customerName}} <br>
+        订单状态：{{orderStatuses[status].label}} <br>
+        总价：{{totalPrice}} <br>
+        积分：{{rewordPoints}} <br>
+        下单时间：{{(new Date(createTimestamp)).toLocaleString()}} <br>
+        更新时间：{{(new Date(updateTimestamp)).toLocaleString()}} <br>
+        寄送方式：{{shipMethods[shipMethod].label}} <br>
+        寄送地址：{{shipAddress}} <br>
+        邮费：{{shipPrice}} <br>
+        支付方式：{{payMethods[payMethod].label}} <br>
+        发票地址：{{invoiceAddress}} <br>
+        发票金额：{{invoicePrice}} <br>
+        备注：{{comment}} <br>
+        <br>
+
+        <el-table :data="orderProducts" style="width: 100%">
+            <el-table-column prop="productCode" label="商品代码">
+            </el-table-column>
+            <el-table-column prop="productName" label="商品名称">
+            </el-table-column>
+            <el-table-column prop="unitPrice" label="单价">
+                <template slot-scope="scope">
+                    {{scope.row.unitPrice.toFixed(2)}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="quantity" label="数量">
+            </el-table-column>
+            <el-table-column prop="totalPrice" label="总计">
+            </el-table-column>
+        </el-table>
+        <br>
+        总价：{{totalPrice}}<br>
+        运费：{{shipPrice}}<br>
+        支付价：{{totalPrice + shipPrice}}<br>
+        <br>
+
+        <el-divider>订单历史</el-divider>
+
+        <el-table :data="orderHistories" style="width: 100%">
+            <el-table-column prop="timestamp" label="时间">
+                <template slot-scope="scope">
+                    {{(new Date(scope.row.timestamp)).toLocaleString()}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="comment" label="备注">
+            </el-table-column>
+            <el-table-column prop="orderStatus" label="订单状态">
+                <template slot-scope="scope">
+                    {{orderStatuses[scope.row.orderStatus].label}}
+                </template>
+            </el-table-column>
+            <el-table-column label="通知客户">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.customerNotified">是</span><span v-else>否</span> <br>
+                </template>
+            </el-table-column>
+            </el-table-column>
+        </el-table>
+        <br>
+        <br>
+
+        添加订单历史<br><br>
+        <el-select v-model="createHistoryOrderStatus" placeholder="请选择订单状态">
+            <el-option v-for="item in orderStatuses" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
+        <br>
+        <br>
+
+        <el-checkbox v-model="createHistoryCustomerNotified">通知客户</el-checkbox>
+        <br>
+        <br>
+
+        <el-input v-model="createHistoryComment" type="textarea" placeholder="请输入备注"></el-input>
+        <br>
+        <br>
+
+        <el-button type="primary" @click="handleCreateOrderHistoryClick">添加订单历史</el-button>
+
+</div>
+
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/js/common.js"></script>
+<script src="assets/js/vue.js"></script>
+<script src="assets/js/elementui.js"></script>
+<script src="viewmodels/orderShow.js"></script>
+
+</body>
+
+</html>
